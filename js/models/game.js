@@ -1,10 +1,10 @@
 module.exports = Backbone.Model.extend({
     
     defaults: {
-        gridMax: 100,
+        gridMax: 10,
         gridMin: 0,
-        coorY: 50,
-        coorX: 50,
+        coorY: 5,
+        coorX: 5,
         fuelX: 0,
         fuelY: 0,
         user: '',
@@ -115,7 +115,7 @@ module.exports = Backbone.Model.extend({
             if (handoff === 0) {
                 console.log ('Player is already pulled all the way left, He can\'t pull left any further dude!');
             } else {
-                    handoff = handoff - 10;
+                    handoff = handoff - 1;
             }
         }
         this.set('fuel', helpFuel);
@@ -131,10 +131,10 @@ module.exports = Backbone.Model.extend({
             console.log ('Player is out of fuel :(');
         } else {
             helpFuel = helpFuel - helpUse;
-            if (handoff === 100) {
+            if (handoff === 0) {
                 console.log ('Player is already pulled all the way up, He can\'t pull up any further dude!');
             } else {
-                handoff = handoff + 10;
+                handoff = handoff - 1;
             }
         }
         this.set('fuel', helpFuel);
@@ -150,10 +150,10 @@ module.exports = Backbone.Model.extend({
             console.log ('Player is out of fuel :(');
         } else {
             helpFuel = helpFuel - helpUse;
-            if (handoff === 0) {
+            if (handoff === 100) {
                 console.log ('Player is already pulled all the way down, He can\'t pull down any further dude!');
             } else {
-                handoff = handoff - 10;
+                handoff = handoff + 1;
             }
         }
         this.set('fuel', helpFuel);
@@ -172,7 +172,7 @@ module.exports = Backbone.Model.extend({
             if (handoff === 100) {
                 console.log ('Player is already pulled all the way right, He can\'t pull right any further dude!');
             } else {
-                handoff = handoff + 10;
+                handoff = handoff + 1;
             }
         }
         this.set('fuel', helpFuel);

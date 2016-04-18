@@ -35,12 +35,15 @@ module.exports = Backbone.View.extend({
             position: comboP,
             fuelRewards: comboF,
             score: score,
-            cab: 'test',
+            cab: 'CAB',
+            fare: 'FARE',
         });
         //console.log(HTML);
+        var edit = fuelY -1;
         
         this.el.innerHTML = HTML;
-        document.getElementById('cab').style.cssText += 'margin-top:'+ posY +'%; margin-left:'+ posX + '%;';
+        document.getElementById('cab').style.cssText += 'top:'+ posY +'0%; left:'+ posX + '0%;';
+        document.getElementById('fare').style.cssText += 'top:'+ edit +'0%; left:'+ fuelX + '0%;';
     },
     
     recordLeft: function () {
