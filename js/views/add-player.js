@@ -1,6 +1,6 @@
 module.exports = Backbone.View.extend({
     events: {
-        'click #submit-player': 'sendPlayer', 
+        'click #submit-player': 'goTime', 
     },
     
     HTMLtemplate: _.template(document.getElementById('new-player-template').textContent),
@@ -8,16 +8,19 @@ module.exports = Backbone.View.extend({
     render: function() {
         this.model.setPosStart();
         this.model.setFuelReward();
+        this.model.resetScore();
         this.el.innerHTML = this.HTMLtemplate();
+    },
+    
+    goTime: function() {
+        this.sendPlayer();
+        this.sendVehicle();
+        Backbone.history.navigate('play', {trigger: true});
     },
     
     sendPlayer: function() {
         var input = document.getElementById('name-player').value; 
         this.model.setPlayer(input);
-        this.sendVehicle();
-        //Study .navigate and implement on other views
-        Backbone.history.navigate('play', {trigger: true});
-
     },
     
     sendVehicle: function() {
@@ -28,6 +31,5 @@ module.exports = Backbone.View.extend({
             input = document.getElementById('cruiser').value;   
         }
         this.model.setVehicle(input);
-        //console.log(input + ' selected');
     },
 });

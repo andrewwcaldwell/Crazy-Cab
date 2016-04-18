@@ -1,14 +1,31 @@
 module.exports = Backbone.View.extend({
     initialize: function() {
         this.model.on('change', this.render, this);
-        //console.log('ready for changes');
+        var view = this;
+        
+        Mousetrap.bind('left', function () {
+            view.recordLeft();
+        });
+        
+        Mousetrap.bind('up', function () {
+            view.recordUp();
+        });
+        
+        Mousetrap.bind('down', function () {
+            view.recordDown();
+        });
+
+        Mousetrap.bind('right', function () {
+            view.recordRight();
+        });
     },
-    
+
     events: {
-        'click #button-left': 'recordLeft',
-        'click #button-up': 'recordUp',
-        'click #button-down': 'recordDown',
-        'click #button-right': 'recordRight',   
+        //'click #button-left': 'recordLeft',
+        //'click #button-up': 'recordUp',
+        //'click #button-down': 'recordDown',
+        //'click #button-right': 'recordRight', 
+        'keypress': 'keyAction',
     },
     
     HTMLtemplate: _.template(document.getElementById('play-game-template').textContent),
@@ -18,11 +35,9 @@ module.exports = Backbone.View.extend({
         // Import Model Values for Render
         var posX = this.model.get('coorX');
         var posY = this.model.get('coorY');
-        var comboP = 'X: ' + posX + ' , Y: ' + posY;
-        
+    
         var fuelX = this.model.get('fuelX');
         var fuelY = this.model.get('fuelY');
-        var comboF = 'X: ' + fuelX + ' , Y: ' + fuelY;
         
         var user = this.model.get('user');
         var fuel = this.model.get('fuel');
@@ -32,11 +47,9 @@ module.exports = Backbone.View.extend({
         var HTML = this.HTMLtemplate({
             username: user,
             fuellevel: fuel,
-            position: comboP,
-            fuelRewards: comboF,
             score: score,
-            cab: 'CAB',
-            fare: 'FARE',
+            cab: '',
+            fare: '',
         });
         //console.log(HTML);
         var edit = fuelY -1;
@@ -49,21 +62,25 @@ module.exports = Backbone.View.extend({
     recordLeft: function () {
         //console.log('You hit the Left Button');
         this.model.moveLeft();
+        document.getElementById('cab').style.cssText += 'background-image: url(../resource/Car_Left.png);';
     },
     
     recordUp: function () {
         //console.log('You hit the Up Button');
         this.model.moveUp();
+        document.getElementById('cab').style.cssText += 'background-image: url(../resource/Car_Up.png);';
     },
     
     recordDown: function () {
         //console.log('You hit the Down Button');
         this.model.moveDown();
+        document.getElementById('cab').style.cssText += 'background-image: url(../resource/Car_Down.png);';
     },
     
     recordRight: function () {
         //console.log('You hit the Right Button');
         this.model.moveRight();
+        document.getElementById('cab').style.cssText += 'background-image: url(../resource/Car_Right.png);';
     },
     
     

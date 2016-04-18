@@ -7,46 +7,61 @@
     <script src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="http://underscorejs.org/underscore-min.js"></script>
     <script src="http://backbonejs.org/backbone-min.js"></script>
+    <script src="https://craig.global.ssl.fastly.net/js/mousetrap/mousetrap.min.js?71631"></script>
     <script src="js/app.js"></script>
 
     <script type="text/template" id="new-player-template">
-        <h2>Add New Player</h2>
-        <div>
+        <div class="add">
+            <h1>Crazy Cab</h1>
+            <h2>Add New Player</h2>
             <div>
-                <input type="radio" name="vehicle" id="speeder" value="speeder">Speeder</input>
-                <input type="radio" name="vehicle" id="cruiser" value="cruiser">Cruiser</input>
-            <div>
-            <input type="text" id="name-player" placeholder="Enter Name">
-            <button id="submit-player">Add</button>
+                <h3>Please Enter Player Name:</h3>
+                <input type="text" id="name-player" placeholder="Enter Name">
+                <h3>Choose Cab Type:</h3>
+                <div>
+                    <input type="radio" name="vehicle" id="speeder" value="speeder">
+                    <label for="speeder"><span></span>Speeder</label>
+                    <input type="radio" name="vehicle" id="cruiser" value="cruiser">
+                    <label for="cruiser"><span></span>Cruiser</label>
+                <div>  
+            </div>
+            <button id="submit-player">Start</button>
         </div>
     </script>
     <script type="text/template" id="play-game-template">
-        <div id="points">  
-            <h3>Player</h3>
-            <p id="username"> <%= username %> </p>   
+        <div class="play">
+            <div id="points">
+                <div class="spacer">
+                    <h4>Player Name: </h4>
+                    <h5 id="username"> <%= username %> </h5>
+                </div>
             
-            <h3>Score</h3>
-            <p id="score"> <%= score %> </p>
+                <div class="spacer">
+                    <h4>Score: </h4>
+                    <h5 id="score"> <%= score %> </h5>
+                </div>
             
-            <h3>Fuel Level</h3>
-            <p id="username"> <%= fuellevel %> </p>
-            
-            <h3>Players Position</h3>
-            <p id="position"> <%= position %> </p>
-            
-            <h3>Next Fuel Rewards Card Position</h3>
-            <p id="rewards"> <%= fuelRewards %> </p>
-            
-            <button id="button-left">Left</button>
-            <button id="button-up">Up</button>
-            <button id="button-down">Down</button>
-            <button id="button-right">Right</button>
-        </div>
-        <div id="playspace">
-            <div id="binder">
-                <div id="cab" class="cabPos"> <%= cab %> </div>
-                <div id="fare" class="farePos"> <%= fare %> </div>
+                <div class="spacer">
+                    <h4>Fuel Level: </h3>
+                    <h5 id="username"> <%= fuellevel %> </h5>
+                </div>
             </div>
+            <div id="playspace">
+                <div id="binder">
+                    <div id="cab" class="cabPos"> <%= cab %> </div>
+                    <div id="fare" class="farePos"> <%= fare %> </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="game-over-template">
+        <div class="add">
+            <h1>Game Over</h1>
+            <h4>High Score:</h4>
+            <h5 id="username"> <%= highscore %> </h5>
+            <h4>Your Score:</h4>
+            <h5 id="username"> <%= userscore %> </h5>
+            <button id="submit-restart">New Game</button>
         </div>
     </script>
 </head>
@@ -56,14 +71,20 @@
         <main class="screen">
             <div id="new-player"></div>
             <div id="play-game"></div>
+            <div id="game-over"></div>
         </main>
     </div>
     <span class="nav">
-        <h2>Nintendo</h2>
-        <h1>CRAZY CAB</h1>
+        <p class="titleA">Nintendo</p>
+        <p class="titleB">CRAZY CAB</p>
         <a href="#/add">New Player</a>
         <a href="#/play">New Game</a>
     </span>
-</body>
-
+    <!--div class="spacer">
+        <button id="button-left">Left</button>
+        <button id="button-up">Up</button>
+        <button id="button-down">Down</button>
+        <button id="button-right">Right</button>
+    </div-->
+</body>            
 </html>

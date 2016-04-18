@@ -10,6 +10,7 @@ module.exports = Backbone.Model.extend({
         user: '',
         fuel: 5,
         use: 0,
+        hScore: 0,
         score: 0,
         reward: 0,
         
@@ -89,6 +90,7 @@ module.exports = Backbone.Model.extend({
         if ( helpFX === helpPX && helpFY === helpPY) {
             this.setFuelReward();
             this.score10();
+            this.setScore();
             helpFuel = helpFuel + helpReward;
             console.log('You reached the Fuel Points Rewards Card - You have received More Fuel Points');
         }
@@ -98,7 +100,7 @@ module.exports = Backbone.Model.extend({
     urDead: function() {
         var helpFuel = this.get('fuel');
         if (helpFuel === 0) {
-            alert('Sorry. Ass, Grass, or Gas, and you aint got no gas... looks like your SOL Amigo! Start a New Game');
+            Backbone.history.navigate('end', {trigger: true});
         }
     },
         
@@ -150,7 +152,7 @@ module.exports = Backbone.Model.extend({
             console.log ('Player is out of fuel :(');
         } else {
             helpFuel = helpFuel - helpUse;
-            if (handoff === 100) {
+            if (handoff === 10) {
                 console.log ('Player is already pulled all the way down, He can\'t pull down any further dude!');
             } else {
                 handoff = handoff + 1;
@@ -169,7 +171,7 @@ module.exports = Backbone.Model.extend({
             console.log ('Player is out of fuel :(');
         } else {
             helpFuel = helpFuel - helpUse;
-            if (handoff === 100) {
+            if (handoff === 10) {
                 console.log ('Player is already pulled all the way right, He can\'t pull right any further dude!');
             } else {
                 handoff = handoff + 1;
@@ -198,6 +200,23 @@ module.exports = Backbone.Model.extend({
         var min = this.get('gridMin');
         var max = this.get('gridMax');
         return Math.floor(Math.random() * (max-min+1)+min);   
+    },
+    
+    setScore: function() {
+        var high = this.get('hScore');
+        var score = this.get('score');
+        
+        if (score >= high) {
+            high = score;
+        }
+        this.set('hScore', high);
+    },
+    
+    resetScore: function() {
+        var score = this.get('score');
+        score = 0;
+        
+        this.set('score', score);
     },
     
     score10: function() {

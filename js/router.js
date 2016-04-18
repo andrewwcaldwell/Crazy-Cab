@@ -1,16 +1,19 @@
 var addView = require('./views/add-player');
 var playView = require('./views/play-game');
+var endView = require('./views/game-over');
 var gameModel = require('./models/game');
 
 module.exports = Backbone.Router.extend({
     
     initialize: function() {
         this.game = new gameModel();
-        this.view = null;        
+        this.view = null; 
+        Backbone.history.navigate('add', {trigger: true});
     },
     routes: {
-        'play': 'playGame',
         'add': 'addPlayer',
+        'play': 'playGame',
+        'end': 'gameOver',
     }, 
     
     playGame: function() {
@@ -38,8 +41,23 @@ module.exports = Backbone.Router.extend({
         
         this.view = new addView({
             model: this.game,
-            el: document.getElementById('new-player')
+            el: document.getElementById('play-game')
+            //el: document.getElementById('new-player')
         });
         this.view.render();
     },
+    
+    gameOver: function() {
+        if (this.view !== null) {
+            this.view.el.innerHTML = '';
+            this.view.undelegateEvents();
+        }
+        
+        this.view = new endView({
+            model: this.game,
+            el: document.getElementById('play-game')
+            //el: document.getElementById('game-over')
+        });
+        this.view.render();
+    }
 });
